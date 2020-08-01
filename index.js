@@ -1,42 +1,25 @@
+import Express from 'express'
 import awilix from 'awilix'
+import awilixExpress from 'awilix-express'
+import UserService from './service/user-service.js'
 
+
+//Awilix registrando container
 const container = awilix.createContainer();
 
-class UserController {
-    
-    constructor({userService}) { 
-        console.log("Instanciando UserController")
-        this.userService = userService
-    }
+container.register({
+  userService:awilix.asClass(UserService)
+})
   
-    getUser() {
-      return this.userService.getUser()
-    }
-  }
+//Server - Express
 
-  class UserService{
+const app =  Express()
+app.use(awilixExpress.scopePerRequest(container))
+app.use(awilixExpress.loadControllers('routes-controller/*.js', {cwd: "/Users/terasplay/curso-vip/dojo-awilix/"} ))
+app.listen(3000)
 
-        constructor(){
-                console.log("Instanciando Service")
-        }
-
-        getUser(){
-            //Fez busca com repository
-            return {name:"Jão", email:"jao@gmail.com"}
-        }
-
-  }
-
-
-  container.register({
-   
-    userController: awilix.asClass(UserController),
-    userService:awilix.asClass(UserService)
-  })
-  
-
-
- const controller = container.resolve("userController")
- console.log(controller.getUser())
+// const controller = container.resolve("userController")
+ //Request 
+ //console.log(controller.getUser())
 
   
