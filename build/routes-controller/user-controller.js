@@ -15,9 +15,14 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
+var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
+
 var _awilixExpress = require("awilix-express");
 
-var UserController = /*#__PURE__*/function () {
+var _dec, _dec2, _dec3, _class, _class2;
+
+var UserController = ( // or `awilix-router-core`
+_dec = (0, _awilixExpress.route)("/user"), _dec2 = (0, _awilixExpress.route)("/:id"), _dec3 = (0, _awilixExpress.GET)(), _dec(_class = (_class2 = /*#__PURE__*/function () {
   function UserController(_ref) {
     var userService = _ref.userService;
     (0, _classCallCheck2["default"])(this, UserController);
@@ -59,10 +64,6 @@ var UserController = /*#__PURE__*/function () {
     }()
   }]);
   return UserController;
-}(); //Awilix Mapeando as rotas
-
-
-var _default = (0, _awilixExpress.createController)(UserController).prefix("/user").get("/:id", "getUser");
-
-exports["default"] = _default;
+}(), ((0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "getUser", [_dec2, _dec3], Object.getOwnPropertyDescriptor(_class2.prototype, "getUser"), _class2.prototype)), _class2)) || _class);
+exports["default"] = UserController;
 //# sourceMappingURL=user-controller.js.map
